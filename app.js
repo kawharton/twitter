@@ -1,6 +1,9 @@
 var express = require( 'express' );
 var swig = require('swig');
 var routes = require('./routes/');
+var bodyParser = require('body-parser');
+var socketio = require('socket.io');
+
 var app = express(); 
 
 app.engine('html', swig.renderFile);
@@ -11,10 +14,9 @@ swig.setDefaults({ cache: false });
 
 app.use(express.static('public'));
 
-app.use('/', routes);
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use('/', routes(io));
 
-
-app.listen(3000, function(){
-	console.log("server listening");
-});
-
+var server = app.listen(3000);
+var io = socketio.listen(server);

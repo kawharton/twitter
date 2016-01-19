@@ -13,7 +13,7 @@
       {% if showForm %}
         <form action="/tweets" method="POST">
           <label for="name_field">Name:</label>
-          <input name="name" type="text" id="name_field" />
+          <input name="name" type="text" id="name_field" value={% if tweets.length < 10 %}{{tweets[0].name}}{% endif %}{% if tweets.length > 10 %}""{% endif %}/>
 
           <label for="text_field">Text:</label>
           <input name="text" type="text" id="text_field" style="width: 350px;" />
