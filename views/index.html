@@ -7,16 +7,37 @@
   </div>
   <div class="row">
     <div class="col-md-3">
-      <img src="https://pbs.twimg.com/profile_images/2450268678/olxp11gnt09no2y2wpsh_normal.jpeg"><br>
+      <img src="https://pbs.twimg.com/profile_images/2450268678/olxp11gnt09no2y2wpsh_normal.jpeg" height="100"><br>
       <b>Your Name</b><br>
       100 followers
+      {% if showForm %}
+        <form action="/tweets" method="POST">
+          <label for="name_field">Name:</label>
+          <input name="name" type="text" id="name_field" />
+
+          <label for="text_field">Text:</label>
+          <input name="text" type="text" id="text_field" style="width: 350px;" />
+
+          <input type="submit" value="Submit" />
+        </form>
+      {% endif %}
     </div>
     <div class="col-md-9">
     
       <!-- display tweets here -->
-      {% for tweet in tweets %}
-        <li>{{tweet.text}}</li>
-      {% endfor %}
+        {% for tweet in tweets %}
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <h3 class="panel-title"><a href="/users/{{tweet.name}}">{{tweet.name}}</a><span class="badge" style="text-align: right;"><a href="/tweets/{{tweet.id}}">{{tweet.id}}</a></span>
+              </h3>
+            </div>
+            <div class="panel-body">
+              <img src="http://seeklogo.com/images/T/twitter-2012-positive-logo-916EDF1309-seeklogo.com.gif" height="50" width="50"> {{tweet.text}}
+            </div>
+          </div>
+        {% endfor %}
+
+
       
     </div>
   </div>
