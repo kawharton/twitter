@@ -89,8 +89,13 @@
     // When 'new_tweet' events are fired, do something with the packaged tweet
     socket.on('new_tweet', function (tweet) { 
       console.log(tweet);
-      alert('Refreshing... check the console...');
       // some logic to add the new tweet to the DOM…
+      theParent = document.getElementById("tweets");
+      theKid = document.createElement("div");
+      kidArray = ['<div class="panel panel-info">','<div class="panel-heading">','<h3 class="panel-title">','<a href="/users/',tweet.tweets.name,'">',tweet.tweets.name,'</a>','<span class="badge">','<a href="/tweets/',tweet.tweets.id,'" style="color: #fff">',tweet.tweets.id,'</a>','</span></h3></div><div class="panel-body">','<img src="http://seeklogo.com/images/T/twitter-2012-positive-logo-916EDF1309-seeklogo.com.gif" height="50" width="50"> ',tweet.tweets.text,'</div>','</div>'];
+      theKid.innerHTML = kidArray.join('');
+      
+      theParent.insertBefore(theKid, theParent.firstChild);
     }); 
   </script>
 </html>

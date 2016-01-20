@@ -10,25 +10,27 @@
       <img src="https://pbs.twimg.com/profile_images/2450268678/olxp11gnt09no2y2wpsh_normal.jpeg" height="100"><br>
       <b>Your Name</b><br>
       100 followers
-      {% if showForm %}
-        <form action="/tweets" method="POST">
-          <label for="name_field">Name:</label>
-          <input name="name" type="text" id="name_field" value={% if tweets.length < 10 %}{{tweets[0].name}}{% endif %}{% if tweets.length > 10 %}""{% endif %}/>
-
-          <label for="text_field">Text:</label>
-          <input name="text" type="text" id="text_field" style="width: 350px;" />
-
-          <input type="submit" value="Submit" />
-        </form>
-      {% endif %}
     </div>
-    <div class="col-md-9">
+    <div class="col-md-9" id="tweets">
+        {% if showForm %}
+          <form action="/tweets" method="POST">
+            <fieldset class="form-group">
+              <label for="name_field">Name:</label>
+              <input name="name" type="text" id="name_field" value={% if tweets.length < 10 %}{{tweets[0].name}}{% endif %}{% if tweets.length > 10 %}""{% endif %}/>
+            </fieldset>
+            <fieldset class="form-group"> 
+              <label for="text_field">Text:</label>
+              <input name="text" type="text" id="text_field" style="width: 350px;" />
+              <input type="submit" value="Submit" />
+            </fieldset>
+          </form>
+        {% endif %}
     
       <!-- display tweets here -->
-        {% for tweet in tweets %}
+        {% for tweet in tweets|sort(true) %}
           <div class="panel panel-info">
             <div class="panel-heading">
-              <h3 class="panel-title"><a href="/users/{{tweet.name}}">{{tweet.name}}</a><span class="badge" style="text-align: right;"><a href="/tweets/{{tweet.id}}">{{tweet.id}}</a></span>
+              <h3 class="panel-title"><a href="/users/{{tweet.name}}">{{tweet.name}}</a>   <span class="badge"><a href="/tweets/{{tweet.id}}" style="color: #fff">{{tweet.id}}</a></span>
               </h3>
             </div>
             <div class="panel-body">

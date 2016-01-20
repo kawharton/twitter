@@ -6,6 +6,9 @@ var socketio = require('socket.io');
 
 var app = express(); 
 
+var server = app.listen(3000);
+var io = socketio.listen(server);
+
 app.engine('html', swig.renderFile);
 
 app.set('view engine', 'html');
@@ -18,5 +21,4 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use('/', routes(io));
 
-var server = app.listen(3000);
-var io = socketio.listen(server);
+

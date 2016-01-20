@@ -8,6 +8,8 @@ module.exports = function(io) {
 	  var name = req.body.name;
 	  var text = req.body.text;
 	  tweetBank.add(name, text);
+	  var tweets = tweetBank.list();
+	  io.sockets.emit('new_tweet', { title: 'Twitter.js', tweets: tweets[tweets.length - 1], showForm: true });
 	  res.redirect("/");
 	});
 
@@ -25,6 +27,9 @@ module.exports = function(io) {
 
 	router.get('/', function (req, res) {
 	  var tweets = tweetBank.list();
+	  io.on('new_tweet', function (socket) {
+	  	
+	  });
 	  res.render( 'index', { title: 'Twitter.js', tweets: tweets, showForm: true } );
 	});
 	return router;
